@@ -22,6 +22,7 @@ public class Millioner {
     private int questionNumber;
 
 
+
     public Millioner() {
         mainPane = new BorderPane();
         buttonsPane = new GridPane();
