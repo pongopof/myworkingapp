@@ -36,6 +36,7 @@ public class Millioner {
     public void addQuestionBank(){
         this.questions.add(new Question("Pierwszy lek w leczeniu miażdzycy", "statyna" , "fibrat", "jakieś gówno", "cebula"));
         this.questions.add(new Question("Pierwszy lek w leczeniu elegible", "prawidłowa odp" , "zgd", "fg gówno", "cebula"));
+        this.questions.add(new Question("kolejne pytanie", "prawidłowa odp" , "zla", "fg fsd", "sdf"));
     }
 
     public void nextQuestion(){
@@ -96,11 +97,19 @@ public class Millioner {
     public void givedAnswer(AButton button){
         if(button.getAnswer() instanceof CorrectAnswer){
             this.correctAnswer();
+        } else {
+            this.wrongAnswer();
         }
     }
 
     public void correctAnswer(){
+
         questionNumber++;
+        this.nextQuestion();
+    }
+
+    public void wrongAnswer(){
+
     }
 
     public Scene getScene(){
