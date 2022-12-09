@@ -20,6 +20,7 @@ public class Millioner {
     private AButton D;
     private Question question;
     private int questionNumber;
+    private String tesaf;
 
 
     public Millioner() {
