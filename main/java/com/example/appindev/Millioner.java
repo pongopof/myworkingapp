@@ -25,8 +25,7 @@ public class Millioner {
 
     public Millioner() {
         mainPane = new BorderPane();
-        buttonsPane = new GridPane();
-        mainPane.setCenter(buttonsPane);
+
         this.questions = new ArrayList<Question>();
 
 
@@ -37,7 +36,10 @@ public class Millioner {
     public void addQuestionBank(){
         this.questions.add(new Question("Pierwszy lek w leczeniu miażdzycy", "statyna" , "fibrat", "jakieś gówno", "cebula"));
         this.questions.add(new Question("Pierwszy lek w leczeniu elegible", "prawidłowa odp" , "zgd", "fg gówno", "cebula"));
+
+        this.questions.add(new Question("kolejne pytanie", "prawidłowa odp" , "zla", "fg fsd", "sdf", "file:rtgmeniscus.png"));
         this.questions.add(new Question("kolejne pytanie", "prawidłowa odp" , "zla", "fg fsd", "sdf"));
+
     }
 
     public void nextQuestion(){
@@ -45,6 +47,8 @@ public class Millioner {
         Random random = new Random();
         question = this.questions.get(questionNumber);
         int r = random.nextInt(4);
+
+        question.getQuestionField().initialize(this);
         ArrayList<Answer> answers = question.getAnswers();
         System.out.println(answers);
         int numA = 0;
@@ -86,6 +90,9 @@ public class Millioner {
         buttonAnswer = answers.get(numD);
         this.D = new AButton(buttonAnswer, this);
 
+        buttonsPane = new GridPane();
+        mainPane.setCenter(buttonsPane);
+
         buttonsPane.add(A, 0 , 0);
         buttonsPane.add(B, 0, 1);
         buttonsPane.add(C, 1, 0);
@@ -103,13 +110,28 @@ public class Millioner {
         }
     }
 
+    public BorderPane getMainPane(){
+        return this.mainPane;
+    }
+
     public void correctAnswer(){
 
         questionNumber++;
-        this.nextQuestion();
+        if(questionNumber < this.questions.size()) {
+
+
+            this.nextQuestion();
+        } else {
+            this.gameEnd();
+        }
+
     }
 
     public void wrongAnswer(){
+
+    }
+
+    public void gameEnd(){
 
     }
 
