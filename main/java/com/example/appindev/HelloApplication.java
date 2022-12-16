@@ -21,14 +21,15 @@ public class HelloApplication extends Application {
         VBox openingBox= new VBox();
         Button playMillioner = new Button("Play Millioner");
         Label openingLabel = new Label("Do you want to play Millioner?");
+        Scene scene = new Scene(openingBox, 320, 240);
         playMillioner.setOnAction((event) -> {
-            Millioner mill = new Millioner();
-            stage.setScene(mill.getScene());
+            Millioner mill = new Millioner(stage);
+            stage.setScene(mill.getScene(scene));
         });
 
 
         openingBox.getChildren().addAll(openingLabel, playMillioner);
-        Scene scene = new Scene(openingBox, 320, 240);
+
         stage.setScene(scene);
 
 

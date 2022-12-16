@@ -14,7 +14,7 @@ public class QuestionText implements Questionable{
 
     public void initialize(Millioner mill){
 
-        BorderPane pane = mill.getMainPane();
+        BorderPane pane = mill.getQuestionPane();
         Label top = new Label(qText);
         pane.setTop(top);
 

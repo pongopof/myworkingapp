@@ -27,7 +27,7 @@ public class ImageQuestion implements Questionable{
 
 
         HBox topBox = new HBox();
-        BorderPane pane = mill.getMainPane();
+        BorderPane pane = mill.getQuestionPane();
         Label top = new Label(questionText);
         topBox.getChildren().addAll(top, imgv);
         pane.setTop(topBox);
