@@ -1,8 +1,9 @@
 package com.example.appindev;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Question {
+public class Question implements Serializable {
     private Questionable questionField;
     private ArrayList<Answer> answers;
 
@@ -13,6 +14,7 @@ public class Question {
         answers.add(new WrongAnswer(wrongAnswer1));
         answers.add(new WrongAnswer(wrongAnswer2));
         answers.add(new WrongAnswer(wrongAnswer3));
+
     }
 
     public Question(String questionText, String correctAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String filePath){
@@ -30,5 +32,16 @@ public class Question {
 
     public ArrayList<Answer> getAnswers(){
         return this.answers;
+    }
+
+    @Override
+    public String toString(){
+        String value = this.questionField.toString();
+
+        for(Answer a : this.answers){
+            value = value + " " + a.toString();
+        }
+        return value;
+
     }
 }

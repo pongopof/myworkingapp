@@ -1,6 +1,8 @@
 package com.example.appindev;
 
-public class CorrectAnswer implements Answer{
+import java.io.Serializable;
+
+public class CorrectAnswer implements Serializable, Answer  {
 
     private String answerText;
 
@@ -9,6 +11,11 @@ public class CorrectAnswer implements Answer{
     }
 
     public String getAnswerText(){
+        return this.answerText;
+    }
+
+    @Override
+    public String toString(){
         return this.answerText;
     }
 

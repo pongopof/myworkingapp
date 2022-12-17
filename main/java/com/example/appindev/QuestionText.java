@@ -3,7 +3,9 @@ package com.example.appindev;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
-public class QuestionText implements Questionable{
+import java.io.Serializable;
+
+public class QuestionText implements Questionable, Serializable {
 
 
     private String qText;
@@ -18,5 +20,9 @@ public class QuestionText implements Questionable{
         Label top = new Label(qText);
         pane.setTop(top);
 
+    }
+
+    public String toString(){
+        return this.qText;
     }
 }

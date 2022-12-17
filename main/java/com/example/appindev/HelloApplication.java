@@ -8,9 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
-public class HelloApplication extends Application {
+public class HelloApplication extends Application implements Serializable {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -20,15 +21,22 @@ public class HelloApplication extends Application {
 
         VBox openingBox= new VBox();
         Button playMillioner = new Button("Play Millioner");
+        Button createQuestionButton = new Button("Add new questions");
         Label openingLabel = new Label("Do you want to play Millioner?");
         Scene scene = new Scene(openingBox, 320, 240);
+
+        createQuestionButton.setOnAction((event) -> {
+            QuestionsCreator creator = new QuestionsCreator(stage);
+            stage.setScene(creator.getScene(scene));
+        });
+
         playMillioner.setOnAction((event) -> {
-            Millioner mill = new Millioner(stage);
+            Millioner mill = new Millioner(stage, "questions.ser");
             stage.setScene(mill.getScene(scene));
         });
 
 
-        openingBox.getChildren().addAll(openingLabel, playMillioner);
+        openingBox.getChildren().addAll(openingLabel, playMillioner, createQuestionButton );
 
         stage.setScene(scene);
 
@@ -36,7 +44,11 @@ public class HelloApplication extends Application {
 
 
 
+
+
+
         stage.show();
+
     }
 
     public static void main(String[] args) {

@@ -1,6 +1,10 @@
 package com.example.appindev;
 
-public interface Questionable {
+import java.io.Serializable;
+
+public interface Questionable extends Serializable {
 
     void initialize(Millioner mill);
+
+
 }

@@ -1,5 +1,7 @@
 package com.example.appindev;
 
-public interface Answer {
+import java.io.Serializable;
+
+public interface Answer extends Serializable {
     String getAnswerText();
 }

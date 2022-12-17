@@ -9,10 +9,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Millioner {
+public class Millioner implements Serializable {
     private ArrayList<Question> questions;
     private Scene lastScene;
     private Stage stage;
@@ -35,7 +39,8 @@ public class Millioner {
 
 
 
-    public Millioner(Stage stage) {
+    public Millioner(Stage stage, String questionFilePath) {
+        this.addQuestionBank();
         this.stage = stage;
         mainPane = new BorderPane();
         questionPane = new BorderPane();
@@ -57,17 +62,35 @@ public class Millioner {
 
     }
 
-    public void addQuestionBank(){
-        this.questions.add(new Question("Pierwszy lek w leczeniu miażdzycy", "statyna" , "fibrat", "jakieś gówno", "cebula"));
-        this.questions.add(new Question("Pierwszy lek w leczeniu elegible", "prawidłowa odp" , "zgd", "fg gówno", "cebula"));
 
-        this.questions.add(new Question("kolejne pytanie", "prawidłowa odp" , "zla", "fg fsd", "sdf", "file:rtgmeniscus.png"));
-        this.questions.add(new Question("kolejne pytanie", "prawidłowa odp" , "zla", "fg fsd", "sdf"));
+
+    public void addQuestionBank(){
+        this.questions = new ArrayList<>();
+        ArrayList<Question> myList = new ArrayList();
+        ObjectInputStream oi = null;
+        try {
+            FileInputStream fi = new FileInputStream("C:\\Users\\shand\\IdeaProjects\\myworkin\\questions.txt");
+            oi = new ObjectInputStream(fi);
+            ArrayList<Question> readCase = (ArrayList<Question>) oi.readObject();
+            myList = readCase;
+            oi.close();
+        } catch (IOException e) {
+            System.out.println("General I/O exception: " + e.getMessage());
+            e.printStackTrace();
+        } catch (ClassNotFoundException e ) {
+            System.out.println("ClassNotFoundException");
+        }
+
+        QuestionsBank qBank = new QuestionsBank();
+        this.questions.addAll(myList);
+        this.questions.addAll(qBank.getQuestions());
 
     }
 
     public void nextQuestion(){
 
+
+        this.topQuizLabel.setText("Answer the question");
         Random random = new Random();
         question = this.questions.get(questionNumber);
         int r = random.nextInt(4);
@@ -167,11 +190,23 @@ public class Millioner {
             this.buttonsPane.add(this.nextQuestionButton, 1, 2);
 
         } else {
-            this.gameEnd();
+            this.finalVictory();
         }
+    }
 
-
-
+    public void finalVictory(){
+        Stage victoryPopup = new Stage();
+        victoryPopup.initModality(Modality.APPLICATION_MODAL);
+        victoryPopup.setTitle("vicotry");
+        Label victoryLabel = new Label("you won million!!!");
+        Button exitVictoryButton = new Button("Exit");
+        exitVictoryButton.setOnAction(e -> victoryPopup.close());
+        VBox layout = new VBox();
+        layout.getChildren().addAll(victoryLabel, exitVictoryButton);
+        Scene sceneVictory = new Scene(layout);
+        victoryPopup.setScene(sceneVictory);
+        victoryPopup.showAndWait();
+        this.gameEnd();
     }
 
 
@@ -208,6 +243,11 @@ public class Millioner {
     public Scene getScene(Scene scene){
         this.lastScene = scene;
         Scene millionerScene = new Scene(mainPane, 320, 240);
+
+        //QuestionsBank bank = new QuestionsBank();
+       // this.questions = bank.getQuestions();
+
+
 
         this.addQuestionBank();
         this.nextQuestion();

@@ -1,6 +1,8 @@
 package com.example.appindev;
 
-public class WrongAnswer implements Answer{
+import java.io.Serializable;
+
+public class WrongAnswer implements Answer, Serializable {
 
     private String answerText;
     public WrongAnswer(String text){
@@ -10,4 +12,12 @@ public class WrongAnswer implements Answer{
     public String getAnswerText(){
         return this.answerText;
     }
+
+
+    @Override
+    public String toString(){
+        return this.answerText;
+    }
 }
+
+

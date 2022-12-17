@@ -6,7 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
-public class ImageQuestion implements Questionable{
+import java.io.Serializable;
+
+public class ImageQuestion implements Questionable, Serializable {
 
     private final String questionText;
     private final Image image;
@@ -31,5 +33,9 @@ public class ImageQuestion implements Questionable{
         Label top = new Label(questionText);
         topBox.getChildren().addAll(top, imgv);
         pane.setTop(topBox);
+    }
+
+    public String toString(){
+        return this.questionText;
     }
 }
