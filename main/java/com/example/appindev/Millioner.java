@@ -40,7 +40,7 @@ public class Millioner implements Serializable {
 
 
     public Millioner(Stage stage, String questionFilePath) {
-        this.addQuestionBank();
+
         this.stage = stage;
         mainPane = new BorderPane();
         questionPane = new BorderPane();
@@ -48,12 +48,17 @@ public class Millioner implements Serializable {
         this.points = 0;
 
 
+        this.questions = new ArrayList<>();
+        QuestionsBank qBank = new QuestionsBank();
+        this.questions.addAll(qBank.getQuestions());
+
+        System.out.println(this.questions.size());
         this.topQuizLabel = new Label();
 
 
 
         mainPane.setTop(this.topQuizLabel);
-        this.questions = new ArrayList<Question>();
+
 
 
 
@@ -65,7 +70,6 @@ public class Millioner implements Serializable {
 
 
     public void addQuestionBank(){
-        this.questions = new ArrayList<>();
         ArrayList<Question> myList = new ArrayList();
         ObjectInputStream oi = null;
         try {
@@ -81,9 +85,12 @@ public class Millioner implements Serializable {
             System.out.println("ClassNotFoundException");
         }
 
-        QuestionsBank qBank = new QuestionsBank();
+
+        if(this.questions.isEmpty()){
+            return;
+        }
         this.questions.addAll(myList);
-        this.questions.addAll(qBank.getQuestions());
+
 
     }
 
@@ -249,7 +256,7 @@ public class Millioner implements Serializable {
 
 
 
-        this.addQuestionBank();
+
         this.nextQuestion();
         return millionerScene;
     }

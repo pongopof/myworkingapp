@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -24,6 +25,7 @@ public class HelloApplication extends Application implements Serializable {
         Button createQuestionButton = new Button("Add new questions");
         Label openingLabel = new Label("Do you want to play Millioner?");
         Scene scene = new Scene(openingBox, 320, 240);
+        CheckBox checkBox1 = new CheckBox("Add custom questions");
 
         createQuestionButton.setOnAction((event) -> {
             QuestionsCreator creator = new QuestionsCreator(stage);
@@ -32,13 +34,21 @@ public class HelloApplication extends Application implements Serializable {
 
         playMillioner.setOnAction((event) -> {
             Millioner mill = new Millioner(stage, "questions.ser");
+            if(checkBox1.isSelected()){
+                mill.addQuestionBank();
+            }
             stage.setScene(mill.getScene(scene));
+
         });
 
 
-        openingBox.getChildren().addAll(openingLabel, playMillioner, createQuestionButton );
+        openingBox.getChildren().addAll(openingLabel, playMillioner, checkBox1, createQuestionButton );
+
 
         stage.setScene(scene);
+
+
+
 
 
 
