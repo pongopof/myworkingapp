@@ -18,6 +18,10 @@ public class WrongAnswer implements Answer, Serializable {
     public String toString(){
         return this.answerText;
     }
+
+    public void setAnswer(String string){
+        this.answerText = string;
+    }
 }
 
 

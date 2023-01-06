@@ -3,6 +3,7 @@ package com.example.appindev;
 import java.io.*;
 import java.util.ArrayList;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -13,6 +14,7 @@ public class QuestionsCreator implements Serializable {
     private Scene lastScene;
     private String filePath;
     private ArrayList<Question> madeQuestions;
+    private ArrayList<Question> readQuestions;
     private TextField questionTextField;
     private TextField correctAnswerTextField;
     private TextField wrongAnswer1TextField;
@@ -22,7 +24,10 @@ public class QuestionsCreator implements Serializable {
     private Button saveButton;
     private Stage stage;
 
+
+
     public QuestionsCreator(Stage stage){
+        readQuestions = new ArrayList();
         this.stage = stage;
         this.madeQuestions = new ArrayList<>();
 
@@ -42,6 +47,8 @@ public class QuestionsCreator implements Serializable {
         this.enterButton.setOnAction(e -> this.addQuestion());
         this.saveButton = new Button("save");
         this.saveButton.setOnAction(e -> this.writeToFile());
+
+
     }
 
     public void addQuestion(){
@@ -66,8 +73,30 @@ public class QuestionsCreator implements Serializable {
         wrongAnswer3TextField.clear();
     }
 
+    public void addQuestions(){
+
+        ArrayList<Question> myList = new ArrayList();
+        ObjectInputStream oi = null;
+        try {
+            FileInputStream fi = new FileInputStream("C:\\Users\\shand\\IdeaProjects\\myworkin\\questions.txt");
+            oi = new ObjectInputStream(fi);
+            ArrayList<Question> readCase = (ArrayList<Question>) oi.readObject();
+            myList = readCase;
+            oi.close();
+        } catch (IOException e) {
+            System.out.println("General I/O exception: " + e.getMessage());
+            e.printStackTrace();
+        } catch (ClassNotFoundException e ) {
+            System.out.println("ClassNotFoundException");
+        }
+        readQuestions = myList;
+    }
+
     public void writeToFile(){
 
+
+        addQuestions();
+        madeQuestions.addAll(this.readQuestions);
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
         try{
@@ -82,6 +111,8 @@ public class QuestionsCreator implements Serializable {
             System.out.println("Error initializing stream");
             e.printStackTrace();
         }
+        madeQuestions.clear();
+        readQuestions.clear();
     }
 
     public Scene getScene(Scene lastScene){

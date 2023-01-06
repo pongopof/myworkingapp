@@ -23,6 +23,7 @@ public class HelloApplication extends Application implements Serializable {
         VBox openingBox= new VBox();
         Button playMillioner = new Button("Play Millioner");
         Button createQuestionButton = new Button("Add new questions");
+        Button questionsExplorerButton = new Button("Show custome questions");
         Label openingLabel = new Label("Do you want to play Millioner?");
         Scene scene = new Scene(openingBox, 320, 240);
         CheckBox checkBox1 = new CheckBox("Add custom questions");
@@ -31,6 +32,8 @@ public class HelloApplication extends Application implements Serializable {
             QuestionsCreator creator = new QuestionsCreator(stage);
             stage.setScene(creator.getScene(scene));
         });
+
+
 
         playMillioner.setOnAction((event) -> {
             Millioner mill = new Millioner(stage, "questions.ser");
@@ -41,8 +44,13 @@ public class HelloApplication extends Application implements Serializable {
 
         });
 
+        questionsExplorerButton.setOnAction((event) -> {
+            QuestionsExplorer qe = new QuestionsExplorer(stage);
+            stage.setScene(qe.getScene(scene));
+        });
 
-        openingBox.getChildren().addAll(openingLabel, playMillioner, checkBox1, createQuestionButton );
+
+        openingBox.getChildren().addAll(openingLabel, playMillioner, checkBox1, createQuestionButton, questionsExplorerButton );
 
 
         stage.setScene(scene);

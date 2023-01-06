@@ -6,5 +6,7 @@ public interface Questionable extends Serializable {
 
     void initialize(Millioner mill);
 
+    void setQuestionText(String string);
+
 
 }

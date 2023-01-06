@@ -22,6 +22,10 @@ public class QuestionText implements Questionable, Serializable {
 
     }
 
+    public void setQuestionText(String string){
+        this.qText = string;
+    }
+
     public String toString(){
         return this.qText;
     }

@@ -19,5 +19,9 @@ public class CorrectAnswer implements Serializable, Answer  {
         return this.answerText;
     }
 
+    public void setAnswer(String string){
+        this.answerText = string;
+    }
+
 
 }
