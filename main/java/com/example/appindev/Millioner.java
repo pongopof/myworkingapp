@@ -1,10 +1,12 @@
 package com.example.appindev;
 
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
@@ -21,7 +23,7 @@ public class Millioner implements Serializable {
     private Scene lastScene;
     private Stage stage;
     private BorderPane mainPane;
-    private GridPane buttonsPane;
+    private VBox buttonsPane;
     private AButton A;
     private AButton B;
     private AButton C;
@@ -69,11 +71,12 @@ public class Millioner implements Serializable {
 
 
 
+
     public void addQuestionBank(){
         ArrayList<Question> myList = new ArrayList();
         ObjectInputStream oi = null;
         try {
-            FileInputStream fi = new FileInputStream("C:\\Users\\shand\\IdeaProjects\\myworkin\\questions.txt");
+            FileInputStream fi = new FileInputStream("C:\\Users\\piotr\\eclipse-workspace\\AppInDev\\src\\questions.txt");
             oi = new ObjectInputStream(fi);
             ArrayList<Question> readCase = (ArrayList<Question>) oi.readObject();
             myList = readCase;
@@ -97,6 +100,7 @@ public class Millioner implements Serializable {
     public void nextQuestion(){
 
 
+        buttonsPane = new VBox();
         this.topQuizLabel.setText("Answer the question");
         Random random = new Random();
         question = this.questions.get(questionNumber);
@@ -133,24 +137,34 @@ public class Millioner implements Serializable {
         System.out.println(numD);
 
         Answer buttonAnswer = answers.get(numA);
-        this.A = new AButton(buttonAnswer, this);
+        this.A = new AButton(buttonAnswer, "A", this);
+        //this.AAnswer = new Label(buttonAnswer.getAnswerText());
+        //HBox ABox = new HBox();
+        //ABox.getChildren().addAll(A, AAnswer);
 
         buttonAnswer = answers.get(numB);
-        this.B = new AButton(buttonAnswer, this);
+        this.B = new AButton(buttonAnswer, "B",this);
+        //this.BAnswer = new Label(buttonAnswer.getAnswerText());
+       //HBox BBox = new HBox();
+       // BBox.getChildren().addAll(B, BAnswer);
 
         buttonAnswer = answers.get(numC);
-        this.C = new AButton(buttonAnswer, this);
+        this.C = new AButton(buttonAnswer, "C",this);
+        //this.CAnswer = new Label(buttonAnswer.getAnswerText());
+        //HBox CBox = new HBox();
+        //CBox.getChildren().addAll(C, CAnswer);
 
         buttonAnswer = answers.get(numD);
-        this.D = new AButton(buttonAnswer, this);
+        this.D = new AButton(buttonAnswer, "D",this);
+       // this.DAnswer = new Label(buttonAnswer.getAnswerText());
+        //HBox DBox = new HBox();
+       // DBox.getChildren().addAll(D, DAnswer);
 
-        buttonsPane = new GridPane();
+
+        buttonsPane.setSpacing(10);
         questionPane.setCenter(buttonsPane);
 
-        buttonsPane.add(A, 0 , 0);
-        buttonsPane.add(B, 0, 1);
-        buttonsPane.add(C, 1, 0);
-        buttonsPane.add(D, 1, 1);
+
 
 
 
@@ -182,6 +196,12 @@ public class Millioner implements Serializable {
         return this.questionPane;
     }
 
+    public VBox getButtonsPane(){
+        return this.buttonsPane;
+    }
+
+
+
     public void correctAnswer(){
 
         this.plusPoint();
@@ -194,7 +214,7 @@ public class Millioner implements Serializable {
             this.nextQuestionButton.setOnAction((event) ->{
                 this.nextQuestion();
             });
-            this.buttonsPane.add(this.nextQuestionButton, 1, 2);
+            this.buttonsPane.getChildren().add(this.nextQuestionButton);
 
         } else {
             this.finalVictory();

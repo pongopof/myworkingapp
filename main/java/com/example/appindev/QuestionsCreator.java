@@ -78,7 +78,7 @@ public class QuestionsCreator implements Serializable {
         ArrayList<Question> myList = new ArrayList();
         ObjectInputStream oi = null;
         try {
-            FileInputStream fi = new FileInputStream("C:\\Users\\shand\\IdeaProjects\\myworkin\\questions.txt");
+            FileInputStream fi = new FileInputStream("C:\\Users\\piotr\\eclipse-workspace\\AppInDev\\src\\questions.txt");
             oi = new ObjectInputStream(fi);
             ArrayList<Question> readCase = (ArrayList<Question>) oi.readObject();
             myList = readCase;
@@ -100,7 +100,7 @@ public class QuestionsCreator implements Serializable {
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
         try{
-            fout = new FileOutputStream("C:\\Users\\shand\\IdeaProjects\\myworkin\\questions.txt");
+            fout = new FileOutputStream("C:\\Users\\piotr\\eclipse-workspace\\AppInDev\\src\\questions.txt");
             oos = new ObjectOutputStream(fout);
             oos.writeObject(this.madeQuestions);
             oos.close();

@@ -40,7 +40,7 @@ public class QuestionsExplorer implements Serializable{
         ArrayList<Question> myList = new ArrayList();
         ObjectInputStream oi = null;
         try {
-            FileInputStream fi = new FileInputStream("C:\\Users\\shand\\IdeaProjects\\myworkin\\questions.txt");
+            FileInputStream fi = new FileInputStream("C:\\Users\\piotr\\eclipse-workspace\\AppInDev\\src\\questions.txt");
             oi = new ObjectInputStream(fi);
             ArrayList<Question> readCase = (ArrayList<Question>) oi.readObject();
             myList = readCase;

@@ -27,6 +27,7 @@ public class HelloApplication extends Application implements Serializable {
         Label openingLabel = new Label("Do you want to play Millioner?");
         Scene scene = new Scene(openingBox, 320, 240);
         CheckBox checkBox1 = new CheckBox("Add custom questions");
+        System.out.println("Seba");
 
         createQuestionButton.setOnAction((event) -> {
             QuestionsCreator creator = new QuestionsCreator(stage);
